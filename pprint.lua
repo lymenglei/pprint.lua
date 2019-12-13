@@ -1,3 +1,5 @@
+-- https://github.com/jagt/pprint.lua/blob/master/pprint.lua
+
 local pprint = { VERSION = '0.1' }
 
 local depth = 1
@@ -456,12 +458,17 @@ end
 
 -- pprint all the arguments
 function pprint.pprint( ... )
+    writer = function(msg)
+        -- print(msg)
+        pprint.writeFile(msg)
+    end
+
     local args = {...}
     -- select will get an accurate count of array len, counting trailing nils
     local len = select('#', ...)
     for ix = 1,len do
-        pprint.pformat(args[ix], nil, io.write)
-        io.write('\n')
+        pprint.pformat(args[ix], nil, writer)
+        writer('\n')
     end
 end
 
@@ -471,5 +478,29 @@ setmetatable(pprint, {
     end
 })
 
+---------------------
+function pprint.writeFile(msg)
+    local fn = i3k_game_get_exe_path() .. "aaapprint.txt";
+    local f = io.open(fn, "a");
+    f:write("------------------------\n")
+    f:write(msg)
+    f:write("------------------------\n")
+    f:close()
+end
+
+function pprint.mypprint(...)
+    local buff = {}
+
+    local args = {...}
+    -- select will get an accurate count of array len, counting trailing nils
+    local len = select('#', ...)
+    for ix = 1,len do
+        local str = pprint.pformat(args[ix], nil, nil)
+        table.insert(buff, str)
+        table.insert(buff, '\n')
+    end
+    pprint.writeFile(table.concat(buff))
+end
+--------------------------------
 return pprint
 

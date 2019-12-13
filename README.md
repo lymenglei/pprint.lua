@@ -1,3 +1,11 @@
+fork:
+
+function pprint.mypprint(...)
+
+print lua vars to file “aaapprint.txt”
+
+------------------
+
 # pprint.lua
 
 __easy lua pretty printing, customizable and public domain!__
@@ -92,7 +100,7 @@ Available options are:
 * __indent_size__ : indent size for each nested table. Defaults to `2`.
 * __level_width__ : max width per indent level. Defaults to `80`.
 * __wrap_string__ : wrap strings longer than __level_width__. Defaults to `true`.
-    
+  
     ```lua
     pprint.setup({level_width = 12, wrap_string = true})
     pprint('these are my twisted words.')

@@ -480,7 +480,7 @@ setmetatable(pprint, {
 
 ---------------------
 function pprint.writeFile(msg)
-    local fn = i3k_game_get_exe_path() .. "aaapprint.txt";
+    local fn = "aaapprint.txt";
     local f = io.open(fn, "a");
     f:write("------------------------\n")
     f:write(msg)
